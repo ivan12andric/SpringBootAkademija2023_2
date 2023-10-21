@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "11d49151-6f75-4f04-a341-f1a5102d818c",
+		"name": "SpringBootAkademija2023_3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13726249"
+	},
+	"item": [
+		{
+			"name": "getVegetables",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getVegetable",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "saveVegetable",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
