@@ -7,6 +7,7 @@ import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.resources.Location;
 import hr.kingict.springbootakademija2023_2.entity.FlightSearchEntity;
 import hr.kingict.springbootakademija2023_2.repository.FlightSearchRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class FlightService {
         }
     }
 
-
+    @Transactional
     public List<FlightOfferSearch> getFlights(String originLocationCode, String destinationLocationCode, LocalDate departureDate, LocalDate returnDate, Integer adults) {
 
         List<FlightSearchEntity> byFlightSearch = flightSearchRepository.findByFlightSearch(originLocationCode, destinationLocationCode, departureDate, returnDate, adults);
