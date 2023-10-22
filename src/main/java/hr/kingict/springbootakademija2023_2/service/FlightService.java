@@ -47,17 +47,21 @@ public class FlightService {
 
     public List<FlightOfferSearch> getFlights(String originLocationCode, String destinationLocationCode, LocalDate departureDate, LocalDate returnDate, Integer adults) {
 
-        FlightSearchEntity flightSearchEntity = new FlightSearchEntity();
-        flightSearchEntity.setOriginLocationCode(originLocationCode);
-        flightSearchEntity.setDestinationLocationCode(destinationLocationCode);
-        flightSearchEntity.setDepartureDate(departureDate);
-        flightSearchEntity.setReturnDate(returnDate);
-        flightSearchEntity.setAdults(adults);
+        List<FlightSearchEntity> byFlightSearch = flightSearchRepository.findByFlightSearch(originLocationCode, destinationLocationCode, departureDate, returnDate, adults);
 
-        flightSearchEntity.setUserCreated("ja sam kreirao");
-        flightSearchEntity.setDateCreated(LocalDate.now());
+        if (byFlightSearch == null || byFlightSearch.isEmpty()) {
+            FlightSearchEntity flightSearchEntity = new FlightSearchEntity();
+            flightSearchEntity.setOriginLocationCode(originLocationCode);
+            flightSearchEntity.setDestinationLocationCode(destinationLocationCode);
+            flightSearchEntity.setDepartureDate(departureDate);
+            flightSearchEntity.setReturnDate(returnDate);
+            flightSearchEntity.setAdults(adults);
 
-        flightSearchRepository.save(flightSearchEntity);
+            flightSearchEntity.setUserCreated("ja sam kreirao");
+            flightSearchEntity.setDateCreated(LocalDate.now());
+
+            flightSearchRepository.save(flightSearchEntity);
+        }
 
 
         Params params = Params
