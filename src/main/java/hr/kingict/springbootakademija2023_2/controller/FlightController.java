@@ -1,14 +1,16 @@
 package hr.kingict.springbootakademija2023_2.controller;
 
+import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.resources.Location;
+import hr.kingict.springbootakademija2023_2.dto.FlightSearchDto;
 import hr.kingict.springbootakademija2023_2.dto.LocationDto;
+import hr.kingict.springbootakademija2023_2.form.FlightSearchForm;
+import hr.kingict.springbootakademija2023_2.mapper.FlightOfferSearchFlightSearchDtoMapper;
 import hr.kingict.springbootakademija2023_2.service.FlightService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class FlightController {
 
     @Autowired
     private FlightService flightService;
+
+    @Autowired
+    private FlightOfferSearchFlightSearchDtoMapper flightSearchDtoMapper;
 
     @GetMapping(value = "/airports/{keyword}")
     public ResponseEntity<List<LocationDto>> getAirports(@PathVariable String keyword){
@@ -31,6 +36,19 @@ public class FlightController {
         return ResponseEntity
                 .ok()
                 .body(listAirportsDto);
+
+    }
+
+    @PostMapping(value = "/flights")
+    public ResponseEntity<List<FlightSearchDto>> getFlights(@RequestBody @Valid FlightSearchForm flightSearchForm){
+
+        List<FlightOfferSearch> flights = flightService.getFlights(flightSearchForm.getOriginLocationCode(), flightSearchForm.getDestinationLocationCode(), flightSearchForm.getDepartureDate(), flightSearchForm.getReturnDate(), flightSearchForm.getAdults());
+
+        return ResponseEntity.ok()
+                .body(flights
+                        .stream()
+                        .map(flightOfferSearch -> flightSearchDtoMapper.map(flightOfferSearch))
+                        .toList());
 
     }
 }
