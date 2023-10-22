@@ -37,6 +37,14 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "getFlights",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
